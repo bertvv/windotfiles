@@ -1,0 +1,46 @@
+# Annotated .gitconfig file
+# See https://git-scm.com/docs/git-config for more information
+
+# Adapt for your own situation!
+[user]
+	# Your full name
+	name = Bert Van Vreckem
+	# Your e-mail address registered with GitHub
+	email = bert.vanvreckem@hogent.be
+
+[push]
+	# This prevents a warning when pushing to GitHub
+	default = simple
+
+[core]
+	# Ignore these files, regardless of repo settings (optional)
+	excludesfile = ~/.gitignore_global
+	# Don't convert line endings to OS default (Windows)
+	autocrlf = input
+	# Don't consider permission changes as modifications
+	fileMode = false
+
+[pull]
+	# Rebase instead of merge. This keeps the history linear.
+	rebase = true
+
+[rebase]
+	# "stash" local changes during a rebase
+	autostash = true
+
+[github]
+	# Specify your Github user (optional)
+	user = bertvv
+
+[init]
+	# Set the default branch name to "main" (instead of "master")
+	# This is the default used by Github.
+	defaultbranch = main
+
+# Aliases are shortcuts for (longer) git commands
+[alias]
+	co = checkout
+	# Nice and compact output for "git log"
+	h = log --pretty='format:%C(yellow)%h %C(blue)%ad %C(reset)%s%C(red)%d %C(green)%an%C(reset), %C(cyan)%ar' --date=short --graph
+
+
