@@ -16,10 +16,6 @@ function Ensure-Imported
   if (!$LoadedModules -like "*$ModuleName*") {Import-Module -Name $ModuleName}
 }
 
-#---------- Terminal icons ----------------------------------------------------
-
-Ensure-Imported Terminal-Icons
-
 #---------- Variables ---------------------------------------------------------
 
 $Docroot = "${env:USERPROFILE}\OneDrive - Hogeschool Gent\Documenten"
@@ -27,8 +23,6 @@ $ProfileDir = "${env:USERPROFILE}\OneDrive - Hogeschool Gent\Documenten\PowerShe
 
 #---------- Powerline prompt --------------------------------------------------
 # Source: https://docs.microsoft.com/nl-be/windows/terminal/tutorials/powerline-setup
-Ensure-Imported posh-git
-Ensure-Imported oh-my-posh
 
 # Set predefined oh-my-posh theme:
 # Other themes can be found in  C:\Users\bertv\AppData\Local\Programs\oh-my-posh\themes
@@ -43,8 +37,8 @@ oh-my-posh init pwsh --config "${ProfileDir}\agnosterplus.omp.json" | Invoke-Exp
 
 if ($host.Name -eq 'ConsoleHost')
 {
-  Ensure-Imported PSReadLine
-  Ensure-Imported CompletionPredictor
+  Import-Module PSReadLine
+  Import-Module CompletionPredictor
 }
 
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
@@ -64,6 +58,10 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
 Set-PSReadLineOption -PredictionSource HistoryAndPlugin
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
+
+#---------- Terminal icons ----------------------------------------------------
+
+Import-Module Terminal-Icons
 
 #---------- Define Aliases ----------------------------------------------------
 
