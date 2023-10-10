@@ -1,4 +1,10 @@
 # PowerShell $PROFILE
+#
+# Inspired by Scott Hanselman's video <https://youtu.be/VT2L1SXFq9U>
+# His PS profile: <https://gist.github.com/shanselman/25f5550ad186189e0e68916c6d7f44c3>
+
+using namespace System.Management.Automation
+using namespace System.Management.Automation.Language
 
 #---------- Functions ---------------------------------------------------------
 
@@ -10,26 +16,50 @@ function Ensure-Imported
   if (!$LoadedModules -like "*$ModuleName*") {Import-Module -Name $ModuleName}
 }
 
-#---------- Modules -----------------------------------------------------------
+#---------- Terminal icons ----------------------------------------------------
 
 Ensure-Imported Terminal-Icons
-Ensure-Imported PSReadLine
-Ensure-Imported CompletionPredictor
 
 #---------- Variables ---------------------------------------------------------
 
 $Docroot = "${env:USERPROFILE}\OneDrive - Hogeschool Gent\Documenten"
 $ProfileDir = "${env:USERPROFILE}\OneDrive - Hogeschool Gent\Documenten\PowerShell"
-$omp = "${env:USERPROFILE}\AppData\Local\Programs\oh-my-posh\bin"
 
-#---------- Load oh-my-posh ---------------------------------------------------
+#---------- Powerline prompt --------------------------------------------------
+# Source: https://docs.microsoft.com/nl-be/windows/terminal/tutorials/powerline-setup
+Ensure-Imported posh-git
+Ensure-Imported oh-my-posh
 
-& "${omp}\oh-my-posh" init pwsh --config "${ProfileDir}\agnosterplus.omp.json" | Invoke-Expression
+# Set predefined oh-my-posh theme:
+# Other themes can be found in  C:\Users\bertv\AppData\Local\Programs\oh-my-posh\themes
+
+# Set custom oh-my posh definition:
+oh-my-posh init pwsh --config "${ProfileDir}\agnosterplus.omp.json" | Invoke-Expression
 
 #---------- PSReadLine settings -----------------------------------------------
 # See
 # - https://devblogs.microsoft.com/powershell/announcing-psreadline-2-1-with-predictive-intellisense/?WT.mc_id=-blog-scottha
 # - https://learn.microsoft.com/en-us/powershell/scripting/learn/shell/using-predictors?view=powershell-7.3
+
+if ($host.Name -eq 'ConsoleHost')
+{
+  Ensure-Imported PSReadLine
+  Ensure-Imported CompletionPredictor
+}
+
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+Set-PSReadlineKeyHandler -Key ctrl+d -Function ViExit
+
+Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
+    param($wordToComplete, $commandAst, $cursorPosition)
+        [Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
+        $Local:word = $wordToComplete.Replace('"', '""')
+        $Local:ast = $commandAst.ToString().Replace('"', '""')
+        winget complete --word="$Local:word" --commandline "$Local:ast" --position $cursorPosition | ForEach-Object {
+            [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+        }
+}
 
 Set-PSReadLineOption -PredictionSource HistoryAndPlugin
 Set-PSReadLineOption -PredictionViewStyle ListView
@@ -43,16 +73,16 @@ function c { git commit -m $args }
 function p { git push $args }
 function a { git add $args }
 function d { git diff $args }
-function h { git log --pretty='format:%C(yellow)%h %C(blue)%ad %C(reset)%s%C(red)%d %C(green)%an%C(reset), %C(cyan)%ar' --date=short --graph }
+function l { git log --pretty='format:%C(yellow)%h %C(blue)%ad %C(reset)%s%C(red)%d %C(green)%an%C(reset), %C(cyan)%ar' --date=short --graph }
 
 # Vagrant
 function v { vagrant $args }
-function vD { vagrant destroy -f $args }
+function vdd { vagrant destroy -f $args }
 function vd { vagrant destroy $args }
 function vh { vagrant halt $args }
 function vp { vagrant provision $args }
 function vr { vagrant reload $args }
-function vS { vagrant ssh $args }
+function vss { vagrant ssh $args }
 function vs { vagrant status }
 function vu { vagrant up $args }
 
