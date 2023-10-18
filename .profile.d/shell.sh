@@ -77,12 +77,19 @@ shopt -s nocaseglob   # case insensitive globbing
 # Define a variable containing a path and you will be able to cd into it regardless of the directory you're in
 shopt -s cdable_vars
 
-export docs="${HOME}/OneDrive - Hogeschool Gent/Documenten/"
+# Set home directory, depending on whether we're inside WSL or in Git Bash
+if [ -n "$WSL_DISTRO_NAME" ]; then
+    export win_home="/mnt/c/Users/${USER}"
+else
+    export win_home="/c/Users/${USERNAME}"
+fi
+
+export docs="${win_home}/OneDrive - Hogeschool Gent/Documenten/"
 export vakken="${docs}/Vakken"
 export infra="${vakken}/InfrastructureAutomation"
 export lnx="${vakken}/Linux"
 export linux="${vakken}/Linux"
-export dpo="${vaken}/DevopsProjectOperations"
+export dpo="${vakken}/DevopsProjectOperations"
 export devops="${vakken}/DevopsProjectOperations"
 export dsai="${vakken}/DataScienceAI"
 export ozt="${vakken}/ResearchMethods"
