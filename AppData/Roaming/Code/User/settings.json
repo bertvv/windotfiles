@@ -1,0 +1,54 @@
+{
+    "workbench.colorTheme": "Default Light Modern",
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "terminal.integrated.defaultProfile.windows": "Windows PowerShell",
+    "terminal.integrated.fontFamily": "Hurmit Nerd Font Mono",
+    "redhat.telemetry.enabled": false,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 10000,
+    "python.defaultInterpreterPath": "C:\\Users\\bvvm876\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
+    "[python]": {
+        "editor.wordWrapColumn": 120
+    },
+    "[shellscript]": {
+        "editor.tabSize": 2,
+        "files.eol": "\n"
+    },
+    "[yaml]": {
+        "editor.quickSuggestions": {
+            "comments": false,
+            "other": true,
+            "strings": true
+        },
+        "editor.tabSize": 2
+    },
+    "window.restoreWindows": "none",
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": true,
+        "scminput": false
+    },
+    "editor.minimap.enabled": true,
+    "editor.renderWhitespace": "all",
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "editor.wordWrap": "wordWrapColumn",
+    "window.zoomLevel": -1,
+    "markdownlint.config": {
+        "default": true,
+        "MD013": false, // Ignore long lines
+        "MD007": {
+            "indent": 4 // 4 spaces for indentation (Github default)
+        }
+    }
+}
