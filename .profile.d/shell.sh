@@ -7,7 +7,7 @@
 #     incremental-history-searching-with-inputrc/
 # - https://github.com/mrzool/bash-sensible/blob/master/sensible.bash
 
-echo "DBG: Shell settings" >&2
+#echo "DBG: Shell settings" >&2
 
 # ---------- General settings -------------------------------------------------
 

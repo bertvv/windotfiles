@@ -1,6 +1,6 @@
 # ~/.profile/aliases.sh - user specific command aliases
 
-echo "DBG: aliases" >&2
+#echo "DBG: aliases" >&2
 
 # Directory listing and file system
 # Use rational units/formats in file size & date output
