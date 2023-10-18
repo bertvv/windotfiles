@@ -1,3 +1,4 @@
+# ~/mdlrc - Markdownlint configuration file
 ---
 
 # Expect indent of 4 spaces (Github default)
@@ -6,3 +7,5 @@ MD007:
 
 # Ignore long lines
 MD013: false
+
+# code: language=yaml
