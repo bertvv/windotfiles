@@ -6,12 +6,12 @@
 #---------- Parameters --------------------------------------------------------
 
 param(
-    [validateset('Status','On','Off','Help')] $Command='Status'
+    [validateset('Status','On','Off','Help')] $Command='Help'
 )
 
 #---------- Variables ---------------------------------------------------------
 
-$featureList = @( 
+$featureList = @(
     "Containers",
     "HypervisorPlatform"
     "Microsoft-Hyper-V-All",
