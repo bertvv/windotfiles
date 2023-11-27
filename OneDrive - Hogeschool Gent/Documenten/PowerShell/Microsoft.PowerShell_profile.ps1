@@ -41,10 +41,6 @@ if ($host.Name -eq 'ConsoleHost')
   Import-Module CompletionPredictor
 }
 
-Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
-Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
-Set-PSReadlineKeyHandler -Key ctrl+d -Function ViExit
-
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
     param($wordToComplete, $commandAst, $cursorPosition)
         [Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
@@ -58,6 +54,10 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
 Set-PSReadLineOption -PredictionSource HistoryAndPlugin
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
+
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+Set-PSReadlineKeyHandler -Key ctrl+d -Function ViExit
 
 #---------- Terminal icons ----------------------------------------------------
 
